@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="todo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <title>Taskr Todo App</title>  
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+        <div class="logo">Taskr</div>
+
+        <div class="user">
+        <span>danieluma15</span>
+        <i class="fa-solid fa-rotate-right"></i>
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+        <div class="hero-content">
+        <div class="date" id="headerDate">FRIDAY, MAY 22</div>
+        <h1 id="headerTitle">0 tasks left.</h1>
+        </div>
+  </section>
+
+  <!-- TASK AREA -->
+  <div class="task-container">
+
+        <div class="input-group">
+        <input type="text" placeholder="Add a new task..." class="task-input" id="taskInput"/>
+        <button class="add-btn" id="addBtn">+ Add</button>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="filters">
+        <div class="filter active-filter">All 0</div>
+        <div class="filter">Active 0</div>
+        <div class="filter">Completed 0</div>
+        <div class="filter-slider"></div>
+        </div>
+
+        <!-- EMPTY -->
+        <div class="empty-section" id="taskList">
+        <div class="circle">
+            <div class="inner-circle"></div>
+        </div>
+
+        <p>Add your first task above</p>
+        </div>
+  </div>
+  <script src="todo.js"></script>
+
+</body>
+</html>
