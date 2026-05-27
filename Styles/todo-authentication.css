@@ -1,16 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=poppins:wght@200;300;400;500;600;700&display=swap");
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
 body {
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #617d8b;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--auth-body-bg);
+}
+main{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 .wrapper {
     position: relative;
@@ -18,8 +21,8 @@ body {
     width: 100%;
     border-radius: 12px;
     padding: 20px 30px 120px;
-    background: #082366;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background: var(--auth-panel-bg);
+    box-shadow: var(--auth-panel-shadow);
     overflow: hidden;
 }
 .form.login {
@@ -31,23 +34,23 @@ body {
     padding: 20px 140px;
     border-radius: 50%;
     height: 100%;
-    background: #fff;
+    background: var(--auth-form-bg);
     transition: all 0.6s ease;
 }
 .wrapper.active .form.login {
     bottom: -15%;
     border-radius: 35%;
-    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--auth-panel-shadow);
 }
 .form header {
     font-size: 30px;
     text-align: center;
-    color: #fff;
+    color: var(--auth-text-light);
     font-weight: 600;
     cursor: pointer;
 }
 .form.login header {
-    color: #333;
+    color: var(--auth-text-dark);
     opacity: 0.6;
 }
 .wrapper form {
@@ -69,15 +72,15 @@ form input {
     padding: 0 15px;
     font-size: 16px;
     font-weight: 400;
-    color: #333;
+    color: var(--auth-text-dark);
     border-radius: 8px;
-    background: #fff;
+    background: var(--auth-form-bg);
 }
 .form.login input {
-    border: 1px solid #aaa;
+    border: 1px solid var(--auth-form-border);
 }
 .form.login input:focus{
-    box-shadow: 0 1px 0 #ddd;
+    box-shadow: 0 1px 0 var(--auth-input-focus-shadow);
 }
 form .checkbox {
     display: flex;
@@ -87,15 +90,18 @@ form .checkbox {
 .checkbox input[type="checkbox"] {
     height: 16px;
     width: 16px;
-    accent-color: #fff;
+    accent-color: var(--auth-checkbox-accent);
     cursor: pointer;
 }
 form .checkbox label {
     cursor: pointer;
-    color: #fff;
+    color: var(--auth-text-light);
+}
+.form.login .checkbox label {
+    color: var(--auth-text-dark);
 }
 form a {
-    color: #333;
+    color: var(--auth-link-color);
     text-decoration: none;
 }
 form a:hover {
@@ -109,7 +115,7 @@ form input[type="submit"] {
     cursor: pointer;
 }
 .form.login input[type="submit"] {
-    background: #082366;
-    color: #fff;
+    background: var(--auth-submit-bg);
+    color: var(--auth-text-light);
     border: none;
 }

@@ -1,37 +1,104 @@
 let input = document.getElementById('inputBox')
-let buttons = document.querySelectorAll('button')
+// Only select buttons inside the calculator to avoid picking other page buttons
+let buttons = document.querySelectorAll('.calculator button')
 
 let string = ""
-let operators = ['+', '-', '*', '/', '%']
+const operators = ['+', '-', '*', '/', '%']
+
+const updateDisplay = () => {
+  input.value = string
+}
+
+const appendChar = (char) => {
+  if (string === "Syntax Error") string = ""
+  const lastChar = string[string.length - 1]
+
+  // Prevent starting with invalid operators
+  if (string.length === 0 && (char === '*' || char === '/' || char === '%')) {
+    string = "Syntax Error"
+    updateDisplay()
+    return
+  }
+
+  // Prevent consecutive operators
+  if (operators.includes(char) && operators.includes(lastChar)) return
+
+  string += char
+  updateDisplay()
+}
+
+const clearAll = () => {
+  string = ""
+  updateDisplay()
+}
+
+const deleteLast = () => {
+  if (string === "Syntax Error") {
+    string = ""
+  } else {
+    string = string.substring(0, string.length - 1)
+  }
+  updateDisplay()
+}
+
+const evaluateExpression = () => {
+  try {
+    // Avoid evaluating empty string
+    if (!string) return
+    // Evaluate safely
+    const result = eval(string)
+    if (result === Infinity || result === -Infinity || Number.isNaN(result)) {
+      string = "Syntax Error"
+    } else {
+      string = String(result)
+    }
+  } catch (e) {
+    string = "Syntax Error"
+  }
+  updateDisplay()
+}
+
+// Button clicks
 let arr = Array.from(buttons)
 arr.forEach(button => {
-    button.addEventListener('click', (e) => {
-        if(e.target.innerHTML == '='){
-            string = eval(string)
-            input.value = string
-        } else if(e.target.innerHTML == 'AC'){
-            string = ""
-            input.value = string
-        } else if( e.target.innerHTML == 'DEL'){
-            string = string.substring(0, string.length - 1)
-            input.value = string
-        } else{
-            // Prevent adding to string if syntax error occurred
-            if(string === "Syntax Error"){
-                return
-            }
-            // Prevent consecutive operators
-            if(operators.includes(e.target.innerHTML) && operators.includes(string[string.length - 1])){
-                return
-            }
-            string += e.target.innerHTML
-            if(string[0] == '*' || string[0] == '/' || string[0] == '%'){
-                string = "Syntax Error"
-                input.value = string
-            }else{
-                input.value = string
-            }
-            
-        }
-    })
+  button.addEventListener('click', (e) => {
+    const val = e.target.innerText.trim()
+    if (val === '=') {
+      evaluateExpression()
+    } else if (val === 'AC') {
+      clearAll()
+    } else if (val === 'DEL') {
+      deleteLast()
+    } else {
+      appendChar(val)
+    }
+  })
+})
+
+// Handle direct typing into the input: sanitize allowed characters
+input.addEventListener('input', (e) => {
+  // Allow digits, operators, dot and percent
+  const sanitized = e.target.value.replace(/[^0-9+\-*/%.]/g, '')
+  if (sanitized !== e.target.value) {
+    e.target.value = sanitized
+  }
+  string = sanitized
+})
+
+// Keyboard shortcuts: Enter = evaluate, Backspace = DEL, Escape = AC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault()
+    evaluateExpression()
+  } else if (e.key === 'Backspace') {
+    // Let Backspace work in the input naturally; also update string accordingly
+    // No need to preventDefault here
+    // Delay reading input value to let the input update
+    setTimeout(() => { string = input.value }, 0)
+  } else if (e.key === 'Escape') {
+    e.preventDefault()
+    clearAll()
+  } else {
+    // For other keys, we allow input's input listener to handle sanitization
+  }
 })
