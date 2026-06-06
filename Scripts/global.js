@@ -1,7 +1,7 @@
 const words = ["DP", "Dual Project"];
 if (window.location.pathname.endsWith("calculator.html")) {
     words. push("Dual Project : CALCULATOR");
-} else if (window.location.pathname.endsWith("todo.html")) {
+} else if (window.location.pathname.endsWith("todo.html") || window.location.pathname.endsWith("todo-landingpage.html")) {
     words. push("Dual Project : TODO");
 }
 let wordIndex = 0;
