@@ -72,6 +72,17 @@ body{
     gap:12px;
 }
 
+.deadline-input{
+    width:180px;
+    height:50px;
+    border:2px solid var(--todo-border);
+    border-radius:16px;
+    padding:0 18px;
+    font-size:16px;
+    background: var(--todo-task-bg);
+    color: var(--todo-text);
+}
+
 .task-input{
     flex:1;
     height:50px;
@@ -142,8 +153,17 @@ body{
     gap:16px;
 }
 
+.task.due-soon{
+    border: 1px solid rgba(255, 178, 66, 0.4);
+    box-shadow: 0 10px 24px rgba(255, 178, 66, 0.08);
+    background: rgba(255, 247, 235, 0.9);
+}
+
 .task-content{
     flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
 }
 
 .task-actions{
@@ -151,7 +171,56 @@ body{
     gap:10px;
 }
 
-.task.done span{
+.task-footer{
+    margin-top:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+}
+
+#taskCount{
+    color: var(--todo-muted);
+    font-size:14px;
+}
+
+.clear-btn{
+    background: transparent;
+    border: 1px solid var(--todo-border);
+    color: var(--todo-text);
+    padding:10px 16px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.task-deadline{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:8px;
+    font-size:14px;
+    color: var(--todo-muted);
+}
+
+.task-overdue{
+    display:inline-flex;
+    align-items:center;
+    margin-left:12px;
+    padding:5px 10px;
+    background: rgba(255, 70, 70, 0.12);
+    color: #ff4646;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.task-deadline i{
+    color: var(--todo-accent);
+}
+
+.task.done .task-text,
+.task.done .task-deadline,
+.task.done .task-overdue {
     text-decoration:line-through;
     color: var(--todo-muted);
 }

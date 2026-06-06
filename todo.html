@@ -40,6 +40,7 @@
 
         <div class="input-group">
         <input type="text" placeholder="Add a new task..." class="task-input" id="taskInput"/>
+        <input type="date" class="deadline-input" id="deadlineInput" aria-label="Task deadline" />
         <button class="add-btn" id="addBtn">+ Add</button>
         </div>
 
@@ -58,6 +59,11 @@
         </div>
 
         <p>Add your first task above</p>
+        </div>
+
+        <div class="task-footer">
+            <span id="taskCount">0 tasks added</span>
+            <button id="clearCompletedBtn" class="clear-btn" type="button">Clear completed</button>
         </div>
   </div>
   <script src="./Scripts/global.js"></script>

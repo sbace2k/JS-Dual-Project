@@ -5,12 +5,16 @@ const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
 const taskInput = document.getElementById('taskInput');
+const deadlineInput = document.getElementById('deadlineInput');
 const addBtn = document.getElementById('addBtn');
 const taskList = document.getElementById('taskList');
 const headerTitle = document.getElementById('headerTitle');
+const taskCountLabel = document.getElementById('taskCount');
 const headerDate = document.getElementById('headerDate');
 const filterButtons = Array.from(document.querySelectorAll('.filter'));
 const slider = document.querySelector('.filter-slider');
+const clearCompletedBtn = document.getElementById('clearCompletedBtn');
+const alertedOverdueTaskIds = new Set();
 
 const d = new Date();
 headerDate.textContent = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}`;
@@ -61,6 +65,17 @@ function render() {
 
   updateFilterCounts(totalTasks, activeTasks, completedTasks);
   headerTitle.textContent = `${activeTasks} tasks left.`;
+  taskCountLabel.textContent = `${totalTasks} tasks added`;
+  clearCompletedBtn.style.display = completedTasks > 0 ? 'inline-flex' : 'none';
+
+  const overdueTasks = tasks.filter((task) => task.deadline && !task.done && getDeadlineStatus(task.deadline) === 'overdue');
+  const newOverdueTasks = overdueTasks.filter((task) => !alertedOverdueTaskIds.has(task.id));
+
+  if (newOverdueTasks.length > 0) {
+    newOverdueTasks.forEach((task) => alertedOverdueTaskIds.add(task.id));
+    const names = newOverdueTasks.map((task) => `- ${task.text}`).join('\n');
+    alert(`Overdue task${newOverdueTasks.length > 1 ? 's' : ''}:\n${names}`);
+  }
 
   taskList.innerHTML = '';
 
@@ -96,9 +111,19 @@ function render() {
       taskDiv.classList.add('done');
     }
 
+    const deadlineStatus = task.deadline ? getDeadlineStatus(task.deadline) : '';
+    if (!task.done && (deadlineStatus === 'today' || deadlineStatus === 'tomorrow')) {
+      taskDiv.classList.add('due-soon');
+    }
+
+    const deadlineText = task.deadline ? formatDeadline(task.deadline) : '';
+    const overdueBadge = deadlineStatus === 'overdue' && !task.done ? `<span class="task-overdue">Overdue</span>` : '';
+
     taskDiv.innerHTML = `
       <div class="task-content">
-        <span>${task.text}</span>
+        <span class="task-text">${task.text}</span>
+        ${task.deadline ? `<span class="task-deadline"><i class="fa-regular fa-calendar-days"></i> ${deadlineText}</span>` : ''}
+        ${overdueBadge}
       </div>
       <div class="task-actions">
         <button class="toggle-btn" type="button">${task.done ? 'Undo' : 'Done'}</button>
@@ -114,8 +139,39 @@ function render() {
   updateFilterButtons();
 }
 
+function getDeadlineStatus(dateString) {
+  const target = new Date(dateString);
+  target.setHours(0, 0, 0, 0);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const diffDays = Math.round((target.getTime() - today.getTime()) / 86400000);
+
+  if (diffDays < 0) return 'overdue';
+  if (diffDays === 0) return 'today';
+  if (diffDays === 1) return 'tomorrow';
+  return 'future';
+}
+
+function formatDeadline(dateString) {
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) {
+    return '';
+  }
+
+  const status = getDeadlineStatus(dateString);
+
+  if (status === 'today') return 'Today';
+  if (status === 'tomorrow') return 'Tomorrow';
+  if (status === 'overdue') return `Overdue (${months[date.getMonth()]} ${date.getDate()})`;
+  return `${months[date.getMonth()]} ${date.getDate()}`;
+}
+
 function addTask() {
   const text = taskInput.value.trim();
+  const rawDeadline = deadlineInput.value;
 
   if (!text) return;
 
@@ -123,9 +179,11 @@ function addTask() {
     id: Date.now(),
     text,
     done: false,
+    deadline: rawDeadline || '',
   });
 
   taskInput.value = '';
+  deadlineInput.value = '';
   render();
 }
 
@@ -143,12 +201,18 @@ function deleteTask(id) {
   render();
 }
 
+function clearCompletedTasks() {
+  tasks = tasks.filter((task) => !task.done);
+  render();
+}
+
 function setFilter(nextFilter) {
   filter = nextFilter;
   render();
 }
 
 addBtn.addEventListener('click', addTask);
+clearCompletedBtn.addEventListener('click', clearCompletedTasks);
 
 taskInput.addEventListener('keypress', (event) => {
   if (event.key === 'Enter') {
