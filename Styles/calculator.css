@@ -24,7 +24,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: linear-gradient(45deg, var(--background-color), var(--background-color-2));
+    background: linear-gradient(45deg, var(--background-color), #f0f0f0);
 }
 main{
     flex:1;
@@ -34,49 +34,66 @@ main{
 }
 
 .calculator{
-    padding: 20px;
+    max-width:390px;
     border-radius: 16px;
-    background: transparent;
+    background: var(--background-color);
     box-shadow: var(--calc-shadow);
     animation: popUp 0.6s ease-out;
+    border: 1px solid rgba(17, 17, 17, 0.1);
 }
 
 input{
-    width: 320px;
+    width: 100%;
     border: none;
     padding: 24px;
-    margin: 10px;
-    background: transparent;
+    background: var(--calc);
     font-size: 40px;
     text-align: right;
     cursor: pointer;
     color: var(--text-color);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
 }
-
 input::placeholder{
     color: var(--text-color);
 }
-
+.butcon{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    padding: 14px;
+    border-top: 1px solid rgba(17, 17, 17, 0.1);
+}
+svg{
+    fill: var(--text-color);
+    height: 23px;
+    width: 23px;
+}
 button{
-    border: none;
-    width: 60px;
-    height: 60px;
-    margin: 10px;
-    border-radius: 50%;
+    border: 1px solid rgba(17, 17, 17, 0.1);
+    text-align: center;
+    width: 85px;
+    height: 55px;
+    border-radius: 16px;
     background: transparent;
     color: var(--text-color);
-    font-size: 20px;
-    box-shadow: var(--calc-button-shadow);
+    font-size: 18px;
+    font-weight: 500;
     cursor: pointer;
 }
-button:hover{
-    border: var(--calc-button-hover-border) solid 2px;
+button:active{
+    transform: scale(0.9);
 }
 
+.log{
+    background: var(--calc);
+}
+.opr{
+    color: var(--calc-eq-bg);
+    background: #d6d6f8;
+    border: 1px solid var(--calc-eq-bg);
+}
 .eqbtn{
     background: var(--calc-eq-bg);
-}
-
-.operator{
-    color: var(--calc-op-color);
+    color: #fff;
 }

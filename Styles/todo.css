@@ -95,46 +95,7 @@ body{
     cursor:pointer;
 }
 
-/* FILTERS */
-.filters{
-    position:relative;
-    margin-top:25px;
-    background: var(--todo-task-bg);
-    border:2px solid var(--todo-border);
-    border-radius:18px;
-    display:flex;
-    padding:5px;
-    overflow:hidden;
-}
 
-.filter{
-    position:relative;
-    flex:1;
-    text-align:center;
-    padding:12px;
-    color: var(--todo-text);
-    font-size:15px;
-    cursor:pointer;
-    z-index:2;
-}
-
-.filter-slider{
-    position:absolute;
-    top:5px;
-    bottom:5px;
-    left:5px;
-    width:calc((100% - 10px) / 3);
-    background: var(--todo-toggle-bg);
-    border-radius:12px;
-    transition: transform 0.25s ease, width 0.25s ease;
-    z-index:1;
-    pointer-events:none;
-}
-
-.active-filter{
-    color: var(--todo-task-bg);
-    cursor:pointer;
-}
 
 /* EMPTY STATE */
 .empty-section {
