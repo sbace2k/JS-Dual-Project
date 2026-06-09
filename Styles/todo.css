@@ -1,6 +1,7 @@
 body{
-    background: var(--todo-bg);
+    background: var(--todo-page-bg);
     overflow-x:hidden;
+    color: var(--todo-text);
 }
 
 /* TOP BAR */
@@ -32,16 +33,29 @@ body{
 }
 
 .theme-button svg{
-    fill: var(--logo-color);
+    fill: var(--todo-text);
     height: 24px;
     width: 24px;
+}
+
+.navbar{
+    background: var(--background-color);
+    border-bottom:1px solid var(--todo-border);
+    color: var(--todo-text);
+    box-shadow:0 1px 0 rgba(20, 21, 22, 0.06);
+}
+
+.logo,
+.logo span{
+    color: var(--todo-text);
 }
 
 /* HERO */
 .hero{
     background: var(--todo-hero-bg);
     color: var(--todo-hero-color);
-    padding:50px 0;
+    padding:52px 0 58px;
+    border-bottom:1px solid var(--todo-border);
 }
 
 .hero-content{
@@ -51,14 +65,15 @@ body{
 
 .date{
     color: var(--todo-muted);
-    letter-spacing:2px;
+    letter-spacing:4px;
     font-size:12px;
     margin-bottom:10px;
 }
 
 .hero h1{
-    font-size:64px;
+    font-size:56px;
     font-weight:900;
+    letter-spacing:0;
 }
 
 /*TASK AREA */
@@ -79,7 +94,7 @@ body{
     border-radius:16px;
     padding:0 18px;
     font-size:16px;
-    background: var(--todo-task-bg);
+    background: var(--todo-surface);
     color: var(--todo-text);
 }
 
@@ -90,20 +105,39 @@ body{
     border-radius:16px;
     padding:0 18px;
     font-size:16px;
+    background: var(--todo-surface);
+    color: var(--todo-text);
+}
+
+.task-input::placeholder{
+    color: var(--todo-muted);
 }
 
 .task-input:focus {
-   outline: 2px solid var(--secondary-color);
+   outline: 2px solid var(--todo-action-bg);
+   border-color: transparent;
+}
+
+.deadline-input:focus{
+    outline: 2px solid var(--todo-action-bg);
+    border-color: transparent;
 }
 
 .add-btn{
     width:100px;
     border:none;
     background: var(--todo-action-bg);
-    color: var(--todo-task-bg);
+    color: var(--todo-action-text);
     border-radius:16px;
     font-size:16px;
     cursor:pointer;
+    font-weight:700;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.add-btn:hover{
+    background: var(--todo-action-hover);
+    transform: translateY(-1px);
 }
 
 
@@ -129,7 +163,7 @@ body{
 .inner-circle{
     width:22px;
     height:22px;
-    border:4px solid var(--todo-text);
+    border:4px solid var(--todo-action-bg);
     border-radius:50%;
 }
 
@@ -142,10 +176,12 @@ body{
 /* TASK ITEMS */
 
 .task{
-    background: var(--todo-task-bg);
-    padding:15px;
+    background: var(--todo-surface);
+    padding:16px;
     margin-top:15px;
     border-radius:12px;
+    border:1px solid var(--todo-border);
+    box-shadow: var(--todo-card-shadow);
 
     display:flex;
     justify-content:space-between;
@@ -154,9 +190,9 @@ body{
 }
 
 .task.due-soon{
-    border: 1px solid rgba(255, 178, 66, 0.4);
-    box-shadow: 0 10px 24px rgba(255, 178, 66, 0.08);
-    background: rgba(255, 247, 235, 0.9);
+    border: 1px solid rgba(81, 108, 244, 0.35);
+    box-shadow: 0 16px 36px rgba(81, 108, 244, 0.12);
+    background: var(--todo-soft-surface);
 }
 
 .task-content{
@@ -191,6 +227,12 @@ body{
     padding:10px 16px;
     border-radius:12px;
     cursor:pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.clear-btn:hover{
+    border-color: var(--todo-action-bg);
+    color: var(--todo-action-bg);
 }
 
 .task-deadline{
@@ -207,15 +249,15 @@ body{
     align-items:center;
     margin-left:12px;
     padding:5px 10px;
-    background: rgba(255, 70, 70, 0.12);
-    color: #ff4646;
+    background: rgba(229, 72, 77, 0.12);
+    color: var(--todo-danger);
     border-radius:999px;
     font-size:12px;
     font-weight:700;
 }
 
 .task-deadline i{
-    color: var(--todo-accent);
+    color: var(--todo-action-bg);
 }
 
 .task.done .task-text,
@@ -226,19 +268,58 @@ body{
 }
 
 .toggle-btn{
-    background: var(--todo-toggle-bg);
-    color: var(--todo-task-bg);
+    background: var(--todo-action-bg);
+    color: var(--todo-action-text);
     border:none;
     padding:8px 14px;
     border-radius:8px;
     cursor:pointer;
+    font-weight:700;
 }
 
 .delete-btn{
-    background: var(--todo-delete-bg);
-    color: var(--todo-task-bg);
+    background: var(--todo-danger);
+    color: var(--todo-action-text);
     border:none;
     padding:8px 14px;
     border-radius:8px;
     cursor:pointer;
+    font-weight:700;
+}
+
+.filters{
+    background: var(--todo-surface);
+    border-color: var(--todo-border);
+}
+
+.filter{
+    color: var(--todo-muted);
+}
+
+.filter-slider{
+    background: var(--todo-action-bg);
+}
+
+.active-filter{
+    color: var(--todo-action-text);
+}
+
+@media (max-width: 700px){
+    .hero-content,
+    .task-container{
+        width: calc(100% - 32px);
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .input-group{
+        flex-direction:column;
+    }
+
+    .deadline-input,
+    .add-btn{
+        width:100%;
+    }
 }

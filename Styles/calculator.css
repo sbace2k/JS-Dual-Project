@@ -24,7 +24,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: linear-gradient(45deg, var(--background-color), #f0f0f0);
+    background: var(--background-color);
 }
 main{
     flex:1;
@@ -39,7 +39,7 @@ main{
     background: var(--background-color);
     box-shadow: var(--calc-shadow);
     animation: popUp 0.6s ease-out;
-    border: 1px solid rgba(17, 17, 17, 0.1);
+    border: 1px solid var(--todo-border);
     margin: 20px;
 }
 
@@ -63,7 +63,7 @@ input::placeholder{
     grid-template-columns: repeat(4, 1fr);
     gap: 7px;
     padding: 14px;
-    border-top: 1px solid rgba(17, 17, 17, 0.1);
+    border-top: 1px solid var(--todo-border);
 }
 svg{
     fill: var(--text-color);
@@ -71,7 +71,7 @@ svg{
     width: 23px;
 }
 button{
-    border: 1px solid rgba(17, 17, 17, 0.1);
+    border: 1px solid var(--todo-border);
     text-align: center;
     width: 85px;
     height: 55px;
@@ -91,10 +91,10 @@ button:active{
 }
 .opr{
     color: var(--calc-eq-bg);
-    background: #d6d6f8;
+    background: var(--todo-soft-surface);
     border: 1px solid var(--calc-eq-bg);
 }
 .eqbtn{
     background: var(--calc-eq-bg);
-    color: #fff;
+    color: var(--todo-action-text);
 }

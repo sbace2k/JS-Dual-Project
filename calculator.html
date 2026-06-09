@@ -21,61 +21,62 @@
         <div class="calculator">
             <input type="text" placeholder="0" id="inputBox">
             <div class="butcon">
-                <button class="log">sin</button>
-                <button class="log">cos</button>
-                <button class="log">tan</button>
-                <button class="opr">RAD</button>
+                <button class="log" data-value="sin">sin</button>
+                <button class="log" data-value="cos">cos</button>
+                <button class="log" data-value="tan">tan</button>
+                <button class="opr" data-value="π">π</button>
 
-                <button class="log">asin</button>
-                <button class="log">acos</button>
-                <button class="log">atan</button>
-                <button class="opr">π</button>
+                <button class="log" data-value="asin">asin</button>
+                <button class="log" data-value="acos">acos</button>
+                <button class="log" data-value="atan">atan</button>
+                <button class="opr" data-value="e">e</button>
 
-                <button class="log">log</button>
-                <button class="log">ln</button>
-                <button class="log">e<sup>x</sup></button>
-                <button class="opr">e</button>
+                <button class="log" data-value="log">log</button>
+                <button class="log" data-value="ln">ln</button>
+                <button class="log" data-value="|x|">|x|</button>
+                <button class="opr" data-value="e^x">e<sup>x</sup></button>
+                
+                <button class="log" data-value="x^-1">x<sup>-1</sup></button>
+                <button class="log" data-value="x^2">x<sup>2</sup></button>
+                <button class="log" data-value="x^3">x<sup>3</sup></button>
+                <button class="log" data-value="x^y">x<sup>y</sup></button>
 
-                <button class="log">x<sup>-1</sup></button>
-                <button class="log">x<sup>2</sup></button>
-                <button class="log">x<sup>3</sup></button>
-                <button class="log">x<sup>y</sup></button>
+                <button class="log" data-value="√x">√x</button>
+                <button class="log" data-value="10^x">10<sup>x</sup></button>
+                <button class="log" data-value="∛x">∛x</button>
+                <button class="log" data-value="y√x"><sup>y</sup>√x</button>
 
-                <button class="log">√x</button>
-                <button class="log">10<sup>x</sup></button>
-                <button class="log">∛x</button>
-                <button class="log"><sup>y</sup>√x</button>
-
-                <button class="log">x!</button>
-                <button class="log">(</button>
-                <button class="log">)</button>
-                <button class="log">|x|</button>
+                <button class="log" data-value="x!">x!</button>
+                <button class="log" data-value="(">(</button>
+                <button class="log" data-value=")">)</button>
+                <button class="log" data-value="%">%</button>
+                
             </div>
             <div class="butcon">
-                <button class="log"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m456-320 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 160q-19 0-36-8.5T296-192L80-480l216-288q11-15 28-23.5t36-8.5h440q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H360ZM180-480l180 240h440v-480H360L180-480Zm400 0Z"/></svg></button>
-                <button class="log">AC</button>
-                <button class="log">%</button>
-                <button class="opr">÷</button>
+                <button class="log" data-action="delete"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m456-320 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 160q-19 0-36-8.5T296-192L80-480l216-288q11-15 28-23.5t36-8.5h440q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H360ZM180-480l180 240h440v-480H360L180-480Zm400 0Z"/></svg></button>
+                <button class="log" data-value="AC">AC</button>
+                <button class="log" data-value="±"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="24px" width="24px" fill="#e3e3e3"><path d="M352 96C352 78.3 337.7 64 320 64C302.3 64 288 78.3 288 96L288 224L160 224C142.3 224 128 238.3 128 256C128 273.7 142.3 288 160 288L288 288L288 416C288 433.7 302.3 448 320 448C337.7 448 352 433.7 352 416L352 288L480 288C497.7 288 512 273.7 512 256C512 238.3 497.7 224 480 224L352 224L352 96zM128 544C128 561.7 142.3 576 160 576L480 576C497.7 576 512 561.7 512 544C512 526.3 497.7 512 480 512L160 512C142.3 512 128 526.3 128 544z"/></svg></button>
+                <button class="opr" data-value="÷">÷</button>
 
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button class="opr">×</button>
+                <button data-value="7">7</button>
+                <button data-value="8">8</button>
+                <button data-value="9">9</button>
+                <button class="opr" data-value="×">×</button>
 
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button class="opr">-</button>
+                <button data-value="4">4</button>
+                <button data-value="5">5</button>
+                <button data-value="6">6</button>
+                <button class="opr" data-value="-">-</button>
 
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button class="opr">+</button>
+                <button data-value="1">1</button>
+                <button data-value="2">2</button>
+                <button data-value="3">3</button>
+                <button class="opr" data-value="+">+</button>
 
-                <button class="log"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M352 96C352 78.3 337.7 64 320 64C302.3 64 288 78.3 288 96L288 224L160 224C142.3 224 128 238.3 128 256C128 273.7 142.3 288 160 288L288 288L288 416C288 433.7 302.3 448 320 448C337.7 448 352 433.7 352 416L352 288L480 288C497.7 288 512 273.7 512 256C512 238.3 497.7 224 480 224L352 224L352 96zM128 544C128 561.7 142.3 576 160 576L480 576C497.7 576 512 561.7 512 544C512 526.3 497.7 512 480 512L160 512C142.3 512 128 526.3 128 544z"/></svg></button>
-                <button>0</button>
-                <button>.</button>
-                <button class="eqbtn">=</button>
+                <button data-value="0">0</button>
+                <button data-value="00">00</button>
+                <button data-value=".">.</button>
+                <button class="eqbtn" data-value="=">=</button>
             </div>
         </div>
     </main>
