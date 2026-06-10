@@ -38,6 +38,22 @@ body{
     width: 24px;
 }
 
+.icon-button{
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-button svg{
+    height: 24px;
+    width: 24px;
+    fill: var(--todo-text);
+}
+
 .navbar{
     background: var(--background-color);
     border-bottom:1px solid var(--todo-border);

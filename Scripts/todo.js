@@ -19,6 +19,41 @@ const alertedOverdueTaskIds = new Set();
 const d = new Date();
 headerDate.textContent = `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}`;
 
+const savedUser = JSON.parse(localStorage.getItem('user') || 'null')
+const userNameSpan = document.querySelector('.user span')
+if (savedUser && userNameSpan) {
+  userNameSpan.textContent = savedUser.name || savedUser.email || 'User'
+}
+
+const logoutBtn = document.getElementById('logoutBtn')
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('user')
+    window.location.href = './todo-login.html'
+  })
+}
+
+async function loadTasks() {
+  if (!savedUser) return
+
+  const response = await fetch(`/tasks?user_id=${savedUser.user_id}`)
+  if (response.ok) {
+    const serverTasks = await response.json()
+    tasks = serverTasks.map((task) => ({
+      id: task.task_id,
+      text: task.task,
+      deadline: task.deadline || '',
+      done: !!task.completed,
+      task_id: task.task_id,
+      completed: !!task.completed,
+    }))
+  } else {
+    tasks = []
+  }
+
+  render()
+}
+
 function getVisibleTasks() {
   if (filter === 'active') {
     return tasks.filter((task) => !task.done);
@@ -169,41 +204,72 @@ function formatDeadline(dateString) {
   return `${months[date.getMonth()]} ${date.getDate()}`;
 }
 
-function addTask() {
+async function addTask() {
   const text = taskInput.value.trim();
   const rawDeadline = deadlineInput.value;
 
-  if (!text) return;
+  if (!text || !savedUser) return;
 
-  tasks.push({
-    id: Date.now(),
-    text,
-    done: false,
-    deadline: rawDeadline || '',
-  });
+  const response = await fetch('/tasks', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      user_id: savedUser.user_id,
+      task: text,
+      deadline: rawDeadline || null,
+    }),
+  })
+
+  if (!response.ok) {
+    alert('Unable to save task to the server.')
+    return
+  }
 
   taskInput.value = '';
   deadlineInput.value = '';
-  render();
+  await loadTasks();
 }
 
-function toggleTask(id) {
+async function toggleTask(id) {
   const task = tasks.find((item) => item.id === id);
 
-  if (task) {
-    task.done = !task.done;
-    render();
+  if (!task) return;
+
+  const response = await fetch(`/tasks/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ done: !task.done }),
+  })
+
+  if (response.ok) {
+    await loadTasks();
   }
 }
 
-function deleteTask(id) {
-  tasks = tasks.filter((task) => task.id !== id);
-  render();
+async function deleteTask(id) {
+  const response = await fetch(`/tasks/${id}`, {
+    method: 'DELETE',
+  })
+
+  if (response.ok) {
+    await loadTasks();
+  }
 }
 
-function clearCompletedTasks() {
-  tasks = tasks.filter((task) => !task.done);
-  render();
+async function clearCompletedTasks() {
+  if (!savedUser) return;
+
+  const response = await fetch(`/tasks?user_id=${savedUser.user_id}`, {
+    method: 'DELETE',
+  })
+
+  if (response.ok) {
+    await loadTasks();
+  }
 }
 
 function setFilter(nextFilter) {
@@ -225,4 +291,4 @@ filterButtons.forEach((button) => {
   button.addEventListener('click', () => setFilter(button.textContent.split(' ')[0].toLowerCase()));
 });
 
-render();
+loadTasks();
