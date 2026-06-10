@@ -45,6 +45,7 @@ main{
 
 input{
     width: 100%;
+    box-sizing: border-box;
     border: none;
     padding: 24px;
     background: var(--calc);
@@ -54,6 +55,8 @@ input{
     color: var(--text-color);
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 input::placeholder{
     color: var(--text-color);
@@ -97,4 +100,32 @@ button:active{
 .eqbtn{
     background: var(--calc-eq-bg);
     color: var(--todo-action-text);
+}
+.scientific-toggle{
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid var(--todo-border);
+    background: var(--calc);
+    color: var(--text-color);
+    padding: 12px;
+    height: auto;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.scientific-toggle:hover{
+    background: var(--todo-soft-surface);
+}
+.scientific-section{
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+}
+.scientific-section.collapsed{
+    max-height: 0;
+    opacity: 0;
+    padding: 0 14px;
 }

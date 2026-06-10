@@ -115,7 +115,21 @@
     color:var(--text-color);
     border-bottom:1px solid var(--todo-border);
 }
-
+.right{
+    display:flex;
+    align-items:center;
+}
+.right a{
+    text-decoration:none;
+    color:var(--text-color);
+    margin-right:20px;
+}
+.right a:hover{
+    color:var(--secondary-color);
+}
+.right a:active{
+    transform:scale(0.95);
+}
 .logo, .logo span{
     font-size:35px;
     font-weight:bold;
