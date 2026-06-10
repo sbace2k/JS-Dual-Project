@@ -11,7 +11,14 @@ signForm.addEventListener('submit', async (event) => {
         alert('Please fill all fields')
         return
     }
-
+    // if(password.length < 8 || password.length > 30){
+    //     alert("Password must be between 8 and 30 characters")
+    //     return false
+    // }
+    if(!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,30}$/)){
+        alert("Password must contain Uppercase, Lowercase, numbers and special character")
+        return false
+    }
     const cPassword = document.getElementById('cPassword').value;
     if (password !== cPassword) {
         alert('Passwords do not match.');

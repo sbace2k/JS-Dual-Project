@@ -153,8 +153,8 @@ calculator.addEventListener('click', (event) => {
   if (action === 'toggle-scientific') {
     scientificSection.classList.toggle('collapsed')
     scientificToggle.textContent = scientificSection.classList.contains('collapsed') 
-      ? 'Show less ▲' 
-      : 'Show more ▼'
+      ? 'Show more ▼'
+      : 'Show less ▲'
     return
   }
 
